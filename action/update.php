@@ -1,15 +1,17 @@
 <?php
 //Conexão com o baco de dados
 require_once 'db_connect.php';
+//Prevenção de SQL injection e XSS
+require_once '../includes/clear.php';
 //Sessão
 session_start();
 
 if(isset($_POST['btn_editar'])){
-    $id = mysqli_escape_string($connect, $_POST['id']);
-    $nome = mysqli_escape_string($connect, $_POST['nome']);
-    $sobrenome = mysqli_escape_string($connect, $_POST['sobrenome']);
-    $email = mysqli_escape_string($connect, $_POST['email']);
-    $idade = mysqli_escape_string($connect, $_POST['idade']);
+    $id = clear($_POST['id']);
+    $nome = clear($_POST['nome']);
+    $sobrenome = clear($_POST['sobrenome']);
+    $email = clear($_POST['email']);
+    $idade = clear($_POST['idade']);
 
     $sql = "UPDATE clientes SET nome = '$nome', sobrenome = '$sobrenome', email = '$email', idade = '$idade' WHERE id = '$id'";
     
